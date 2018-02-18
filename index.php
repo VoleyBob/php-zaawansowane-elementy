@@ -2,27 +2,40 @@
 
 declare(strict_types=1);
 
-// echo PHP_MAX_INT; // =>147483647
-// echo phpinfo();
-
-// apcu_clear_cache ();
-
-$a = apcu_add("test", array(1,2,3,4));
-if ($a) {
-    echo "OK";
+require_once 'APCu.php';
+const A = 'A';
+const B = 'B';
+$acpu = new APCu(3600, A);
+$s = microtime(true);
+if ($test = $acpu->get("number3")) {
+    /**
+     * Każde kolejne wykonanie skryptu przez godzinę
+     */
+//    var_dump(2);
+//    echo $test;
 } else {
-    echo "Błąd";
+    /**
+     * Pierwsze wykoanie skryptu
+     */
+//    var_dump(1);
+    $test = 0;
+    for ($i = 0; $i < 1000000; $i++) {
+        $test += $i * $i + 10;
+    }
+    $acpu->add("number3", $test);
+//    echo $test;
 }
-
-apcu_delete("test");
-
-
-$a = apcu_add("test", array(1,2,3,4));
-if ($a) {
-    echo "OK";
-} else {
-    echo "Błąd";
-}
-
-echo PHP_EOL;
-var_export(apcu_cache_info());
+var_dump(microtime(true) - $s);
+//$acpu->add("number", $test);
+//$acpu2 = new APCu(3600, B);
+//$acpu3 = new APCu(3600, "C");
+//
+//$acpu->add("test", "test value");
+//$acpu2->add("test", "test value2");
+//$acpu3->add("test", "test value3");
+//
+//echo $acpu->get("test") . '<br />';
+//echo $acpu2->get("test") . '<br />';
+//echo $acpu3->get("test") . '<br />';
+//
+//apcu_store("A" . '_' . "test", "test value");
