@@ -3,6 +3,26 @@
 $ch = curl_init();   // przygotowujemy obiekt
 $mysqli= new mysqli('127.0.0.1', 'root','','bookstore');
 var_dump($mysqli->connect_error);
+
+
+
+
+$result = $mysqli->query(
+    'SELECT * FROM books'
+);
+$temp = array();
+while ($row = $result->fetch_assoc()) {
+    $temp[] = $row['title'];
+}
+
+var_dump($temp);
+
+
+exit;
+
+
+
+
 $mysqli->query(
     'INSERT INTO books
     (`id`, `title`, `autor`, `isbn`, `publisher`, `pages`, `year`, `cover`, `copies`)
@@ -10,7 +30,6 @@ $mysqli->query(
 );
 
 
-exit;
 
 curl_setopt($ch, CURLOPT_ACCEPT_ENCODING, 'gzip');
 
