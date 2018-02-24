@@ -1,14 +1,16 @@
-
-
-<!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-    <body>
 <?php
 // create curl resource
 $ch = curl_init();   // przygotowujemy obiekt
+$mysqli= new mysqli('127.0.0.1', 'root','','bookstore');
+var_dump($mysqli->connect_error);
+$mysqli->query(
+    'INSERT INTO books
+    (`id`, `title`, `autor`, `isbn`, `publisher`, `pages`, `year`, `cover`, `copies`)
+    VALUES (NULL, "TEST", "Autor", "9992158107", "wydawca", 100, 2017, "hard", 32)'
+);
+
+
+exit;
 
 curl_setopt($ch, CURLOPT_ACCEPT_ENCODING, 'gzip');
 
@@ -26,55 +28,3 @@ curl_close($ch);
 
 exit;
 
-?>
-    </body>
-</html>
-
-
-<!-- 
-//
-$output = curl_exec($ch);
-
-// close curl resource to free up system resources
-
-
-
-
-
-
-
-
-
-
-
-
-exit;
-
-/*
-<!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-    <body>
-        <form action="currencies.php" method="post">
-            <label for="value">Kwota</label>
-            <input type="text" id="value" value="" name="value">
-
-            <select name="currency">
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="USD">USD</option>
-                <option value="CHF">CHF</option>
-            </select>
-            <input type="submit" />
-        </form>
-        -->
-        <!-- <?php //var_dump($_GET); ?> -->
-        <!--        
-        <?php if (!empty($_GET['val'])) :?>
-            <input value="<?php echo $_GET['val'];?>" disabled>
-
-        <?php endif; ?>
-    </body>
-</html>*/ -->
