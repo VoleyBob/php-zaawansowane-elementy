@@ -1,9 +1,8 @@
 <?php
 declare(strict_types=1);
 
-
-abstract class Base {
-    
+abstract class Base 
+{
     abstract public function validate();
 
     private static $_db;
